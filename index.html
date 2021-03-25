@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--<link href="quiz.css" rel="stylesheet">-->
+	<style type="text/css">
+        body {
+            font-family: 'Roboto Slab', serif;
+            background: #F6F4DE;
+        }
+
+        .container {
+            height: auto;
+            width: 1000px;
+            /*position: absolute;*/
+            top: 21%;
+            left: 50%;
+            /*transform: translateX(-50%) translateY(-50%);
+            background: rgba(255, 255, 255, 0.5);*/
+            padding: 20px;
+            border: 1px solid #08038C;
+            /*box-shadow: 0 0 8px 3px #fff;*/
+            border-radius: 20px;
+        }
+
+        .container1 {
+            height: auto;
+            width: 345px;
+            /*position: absolute;*/
+            top: 50%;
+            left: 50%;
+            /*transform: translateX(-50%) translateY(-50%);
+            background: rgba(255, 255, 255, 0.5);*/
+            padding: 20px;
+            border: 1px solid #08038C;
+            /*box-shadow: 0 0 8px 3px #fff;*/
+            border-radius: 20px;
+        }
+
+        .container3 {
+            height: auto;
+            width: 1000px;
+            align-content:center;
+            text-align:center;
+            /*position: absolute;*/
+            top: 20%;
+            left: 50%;
+            /*transform: translateX(-50%) translateY(-50%);
+            background: rgba(255, 255, 255, 0.5);*/
+            padding: 20px;
+            border: 1px solid #08038C;
+            /*box-shadow: 0 0 8px 3px #fff;*/
+            border-radius: 20px;
+        }
+
+        .title {
+            padding-top: 20px;
+            text-align: center;
+            font-size: 36px;
+            text-transform: uppercase;
+            color: #08038C;
+        }
+
+        .question {
+            padding: 20px;
+            font-size: 22px;
+            background: #08038C;
+            border-radius: 20px;
+            margin: 10px 0 10px 0;
+            color: #f6f6f6;
+            border-color: black;
+        }
+
+        .option {
+            width: 470px;
+            display: inline-block;
+            padding: 10px 0 10px 15px;
+            vertical-align: middle;
+            background: #B8AFAF;
+            margin: 10px 0 10px 10px;
+            color: #000000;
+            border-radius: 20px;
+        }
+
+            .option:hover {
+                background: #08038C;
+                color: #f6f6f6;
+            }
+
+        .next-btn {
+            /*outline: none;*/
+           
+            width: 150px;
+            height: 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            float: right;
+            margin: 10px;
+            text-align: center;
+            vertical-align: middle;
+            
+            background: #08038C;
+            color: #f6f6f6;
+        }
+
+            .next-btn:hover {
+                color: #08038C;
+                border-color: #08038C;
+                background: white;
+            }
+
+        /*.result {
+            height: 100px;
+            text-align: center;
+            font-size: 75px;
+        }
+
+        .resultbtn {
+            height: 100px;
+            text-align: center;
+        }*/
+
+        .option input:checked .option {
+            background: #08038C;
+            color: #000;
+        }
+    </style>
+	</head>
+    <body>
+        <div id="quizContainer" class="container">
+            <div class="title">Six Sigma Basics I Quiz</div>
+            <div id="question" class="question"></div>
+            <label class="option"><input type="radio" name="option" value="1" /> <span id="opt1"></span></label>
+            <label class="option"><input type="radio" name="option" value="2" /> <span id="opt2"></span></label>
+            <label class="option"><input type="radio" name="option" value="3" /> <span id="opt3"></span></label>
+            <label class="option"><input type="radio" name="option" value="4" /> <span id="opt4"></span></label>
+            <div id="nextButton" class="next-btn" onclick="loadNextQuestion();"> <strong>Siguiente pregunta</strong></div>
+        </div>
+        <!--<div id="result" class="container result" style="display:none">
+    </div>-->
+        <div class="container3" style="display:none" id="answers">
+            <h1> Resumen de respuestas</h1>
+            <table align="center">
+                <tr>
+                    <td width="70%" align="left">
+                        <label for="question1" style="font-size:medium">1. Seis Sigma es: </label>
+                    </td>
+                    <td width="30%" align="center">
+                        <span id="question1" style="color:red;font-size:medium">Respuesta Incorrecta</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="70%" align="left">
+                        <label for="question2" style="font-size:medium">2. Un proceso con el nivel Six Sigma tiene una probabilidad de producir: </label>
+                    </td>
+                    <td width="30%" align="center">
+                        <span id="question2" style="color:red;font-size:medium">Respuesta Incorrecta</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="70%" align="left">
+                        <label for="question3" style="font-size:medium">3. La metodología de Seis Sigma fue generada y utilizada por primera vez en esta empresa </label>
+                    </td>
+                    <td width="30%" align="center">
+                        <span id="question3" style="color:red;font-size:medium">Respuesta Incorrecta</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="70%" align="left">
+                        <label for="question4" style="font-size:medium">4. ¿Cuál de las herramientas a continuación NO es considerada una de las herramientas básicas de calidad? </label>
+                    </td>
+                    <td width="30%" align="center">
+                        <span id="question4" style="color:red;font-size:medium">Respuesta Incorrecta</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="70%" align="left">
+                        <label for="question5" style="font-size:medium">5. El Ciclo DMAIC es llamado así por las fases que se siguen: </label>
+                    </td>
+                    <td width="30%" align="center">
+                        <span id="question5" style="color:red;font-size:medium">Respuesta Incorrecta</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="70%" align="left">
+                        <label for="question6" style="font-size:medium">6. Una buena manera de establecer las metas en un proyecto es usando las metas SMART que quieren decir: </label>
+                    </td>
+                    <td width="30%" align="center">
+                        <span id="question6" style="color:red;font-size:medium">Respuesta Incorrecta</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="70%" align="left">
+                        <label for="question7" style="font-size:medium">7. PDCA es el ciclo de mejora continua base también en la metodología Seis Sigma y sus siglas significan </label>
+                    </td>
+                    <td width="30%" align="center">
+                        <span id="question7" style="color:red; font-size:medium">Respuesta Incorrecta</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="70%" align="left" style="font-size:medium">
+                        <label for="question8">8. Se dice que la metodología Seis Sigma es dirigida en base a Datos porque: </label>
+                    </td>
+                    <td width="30%" align="center">
+                        <span id="question8" style="color:red;font-size:medium">Respuesta Incorrecta</span>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        <button id="result" class="container1" style="color:white;background-color:cornflowerblue; padding: 10px 20px; font-size:16px; font-weight:bold; display:none" onclick="window.location.href='https://jorgevillalobos07.github.io/TestSS/'"></button>
+        <button id="resultbtn" class="container1" style="color:white;background-color:#4CAF50; padding: 10px 20px; font-size:16px; display:none" onclick="window.location.href=''">¡Si tienes dudas encuentra nuestro modulos dando click! <br /> <br /><strong>Ir a "X pagina"</strong></button>
+        <button id="resultbtn2" class="container1" style="color:white;background-color:cornflowerblue; padding: 10px 20px; font-size:16px; display:none" onclick="window.location.href=''">Puedes intentarlo mas tarde <br /> <br /><strong>Ir a la página de inicio</strong></button>
+        <button id="resultbtn3" class="container1" style="color:white;background-color:#4CAF50; padding: 10px 20px; font-size:16px; display:none" onclick="window.location.href=''">Vayamos al siguiente nivel <br /> <br /><strong>Ir a ...</strong></button>
+        <!--<script type="text/javascript" src="question.js"></script>-->
+        <script type="text/javascript">
+            var questions = [{
+                "question": "Seis Sigma es: ",
+                "option1": "a)	Una Metodología para reducir defectos y la variación en el proceso",
+                "option2": "b)	Un métrico de calidad riguroso, que nos permite reducir costos ",
+                "option3": "c)	Una cultura de mejora continua con enfoque al cliente ",
+                "option4": "d)	Todas las anteriores ",
+                "answer": "4"
+            }, {
+                "question": "Un proceso con el nivel Six Sigma tiene una probabilidad de producir",
+                "option1": "a)	1% of defective",
+                "option2": "b)	5% of defective",
+                "option3": "c)	300 ppms",
+                "option4": "d)	3.4 ppms",
+                "answer": "4"
+            }, {
+                "question": "La metodología de Seis Sigma fue generada y utilizada por primera vez en esta empresa ",
+                "option1": "a)	Motorola",
+                "option2": "b)	GE",
+                "option3": "c)	Honeywell",
+                "option4": "d)	Ford",
+                "answer": "1"
+            }, {
+                "question": "¿Cuál de las herramientas a continuación NO es considerada una de las herramientas básicas de calidad? ",
+                "option1": "a)	Diagrama de Causa y Efecto ",
+                "option2": "b)	Cartas de control ",
+                "option3": "c)	Regresión Lineal ",
+                "option4": "d)	Pareto",
+                "answer": "3"
+            }, {
+                "question": "El Ciclo DMAIC es llamado así por las fases que se siguen:  ",
+                "option1": "a)	Design, Manufacturing, Assembly, Institutionalization, Characterization",
+                "option2": "b)	Define, Measure, Analyze, Implementation, Control",
+                "option3": "c)	Define, Measure, Analyze, Improve, Control",
+                "option4": "d)	Design, Measure, Analyze, Improve, Control",
+                "answer": "3"
+            }, {
+                "question": "Una buena manera de establecer las metas en un proyecto es usando las metas SMART que quieren decir: ",
+                "option1": "a)	Que las metas deben ser conservadoras para no fallar. ",
+                "option2": "b)	Porque se deben considerar soluciones inteligentes",
+                "option3": "c)	Es un acrónimo que nos guía a obtener metas inteligentes, por sus letras en inglés la meta debe ser Especifica, Medible, Agresiva pero alcanzable, Relevante para la organización, y limitada en tiempo",
+                "option4": "d)	Que las metas deben de ser establecidas por gente inteligente ",
+                "answer": "3"
+            }, {
+                "question": "PDCA es el ciclo de mejora continua base también en la metodología Seis Sigma y sus siglas significan:",
+                "option1": "a)	Plan – Design – Control – Assign",
+                "option2": "b)	Plan – Do – Check – Analyze",
+                "option3": "c)	Plan – Do – Check – Act",
+                "option4": "d)	Problem – Do – Check -Act",
+                "answer": "3"
+            }, {
+                "question": "Se dice que la metodología Seis Sigma es dirigida en base a Datos porque:",
+                "option1": "a)	Se utilizan datos SOLO para justificar la mejora",
+                "option2": "b)	Datos son usados en cada paso del proyecto, para disminuir el riesgo en la toma de decisiones ",
+                "option3": "c)	La utilización de datos nos garantiza que vamos a alcanzar la meta. ",
+                "option4": "d)	Utilizamos datos SOLO para cumplir con estándares de la industria. ",
+                "answer": "2"
+            }];
+
+        </script>
+        <!--<script type="text/javascript" src="quiz-script.js"></script>-->
+        <script type="text/javascript">
+            var currentQuestion = 0;
+            var score = 0;
+            var totQuestions = questions.length;
+
+            var container = document.getElementById('quizContainer');
+            var questionEl = document.getElementById('question');
+            var opt1 = document.getElementById('opt1');
+            var opt2 = document.getElementById('opt2');
+            var opt3 = document.getElementById('opt3');
+            var opt4 = document.getElementById('opt4');
+            var nextButton = document.getElementById('nextButton');
+            var resultCont = document.getElementById('result');
+            var resultbtn = document.getElementById('resultbtn');
+            var resultbtn2 = document.getElementById('resultbtn2');
+            var resultbtn3 = document.getElementById('resultbtn3');
+            var question1 = document.getElementById('question1');
+            var question2 = document.getElementById('question2');
+            var question3 = document.getElementById('question3');
+            var question4 = document.getElementById('question4');
+            var question5 = document.getElementById('question5');
+            var question6 = document.getElementById('question6');
+            var question7 = document.getElementById('question7');
+            var question8 = document.getElementById('question8');
+            var answers = document.getElementById('answers');
+
+            function loadQuestion(questionIndex) {
+                var q = questions[questionIndex];
+                questionEl.textContent = (questionIndex + 1) + '. ' + q.question;
+                opt1.textContent = q.option1;
+                opt2.textContent = q.option2;
+                opt3.textContent = q.option3;
+                opt4.textContent = q.option4;
+            };
+
+            function loadNextQuestion() {
+                var selectedOption = document.querySelector('input[type=radio]:checked');
+                if (!selectedOption) {
+                    alert('Please select your answer!');
+                    return;
+                }
+                var answer = selectedOption.value;
+                if (questions[currentQuestion].answer == answer) {
+
+                    if (currentQuestion == 0) {
+                        question1.innerText = 'Respuesta Correcta';
+                        //question1.style.background = "green";
+                        question1.style.color = "green";
+                    }
+                    //else {
+                    //    question1.style.background = "red";
+                    //    question1.style.color = "white";
+                    //}
+                    if (currentQuestion == 1) {
+                        question2.innerText = "Respuesta Correcta";
+                        //question2.style.background = "green";
+                        question2.style.color = "green";
+                    }
+                    //else {
+                    //    question2.style.background = "red";
+                    //    question2.style.color = "white";
+                    //}
+                    if (currentQuestion == 2) {
+                        question3.innerText = "Respuesta Correcta";
+                        //question3.style.background = "green";
+                        question3.style.color = "green";
+                    }
+                    //else {
+                    //    question3.style.background = "red";
+                    //    question3.style.color = "white";
+                    //}
+                    if (currentQuestion == 3) {
+                        question4.innerText = "Respuesta Correcta";
+                        //question4.style.background = "green";
+                        question4.style.color = "green";
+                    }
+                    //else {
+                    //    question4.style.background = "red";
+                    //    question4.style.color = "white";
+                    //}
+                    if (currentQuestion == 4) {
+                        question5.innerText = "Respuesta Correcta";
+                        //question5.style.background = "green";
+                        question5.style.color = "green";
+                    }
+                    //else {
+                    //    question5.style.background = "red";
+                    //    question5.style.color = "white";
+                    //}
+                    if (currentQuestion == 5) {
+                        question6.innerText = "Respuesta Correcta";
+                        //question5.style.background = "green";
+                        question6.style.color = "green";
+                    }
+                    if (currentQuestion == 6) {
+                        question7.innerText = "Respuesta Correcta";
+                        //question5.style.background = "green";
+                        question7.style.color = "green";
+                    }
+                    if (currentQuestion == 7) {
+                        question8.innerText = "Respuesta Correcta";
+                        //question5.style.background = "green";
+                        question8.style.color = "green";
+                    }
+                    score += 1;
+                }
+
+                selectedOption.checked = false;
+                currentQuestion++;
+                if (currentQuestion == totQuestions - 1) {
+                    nextButton.textContent = 'Enviar';
+                }
+                if (currentQuestion == totQuestions) {
+                    container.style.display = 'none';
+                    //resultCont.style.display = '';
+                    if (score != 8) {
+                        resultCont.innerText = ('Tu resultado es: ' + score + '/8 \n\n' + 'Intentalo de nuevo');
+                        resultbtn.style.display = '';
+                        resultbtn2.style.display = '';
+                        answers.style.display = '';
+                        resultCont.style.display = ''
+                    }
+                    else {
+                        answers.style.display = '';
+                        resultbtn2.innerText = ('¡Felicidades! Tu resultados es: ' + score + '/8 \n\n' + 'Ir a la página de inicio');
+                        resultbtn2.style.display = '';
+                        resultbtn3.style.display = '';
+                    }
+
+                    return;
+                }
+                loadQuestion(currentQuestion);
+            }
+
+            loadQuestion(currentQuestion);
+        </script>
+    </body>
+</html>
